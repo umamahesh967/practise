@@ -1,0 +1,53 @@
+Need of ConcurrentCollections
+
+1.Traditional collection objects like (like ArrayList, HashMap etc) can be accessed by multiple threads simultaneously
+  and there is a chance of data inconsistency.
+
+2.Already existing thread safe collections (like vector, HashTable, SynchronizedList, SynchronizedSet, SynchronizedMap)
+  performance wise not up to the mark. Because for every operation even read operation methods are synchronized and
+  it increases the waiting time of threads.
+
+3. Another big problem with traditional collections is while one thread iterating collection, the other threads are
+   not allowed to modify the collection the simultaneously if we are trying to modify the collection then we will get
+   the ConcurrentModificationException.
+
+   Hence these traditional collections objects are not suitable for scalable multi threaded application. Hence to
+   overcome these problems SUN people introduced Concurrent Collections in 1.5 version.
+
+
+1.Concurrent collections are always thread safe.
+2.Concurrent Collections newer throw the ConcurrentModificationException.
+3.While one thread interaction collection the other. Threads are allowed to modify collection in safe manner.
+
+Important classes are
+1.ConcurrentHashMap
+2.CopyOnWriteArrayList
+3.CopyOnWriteArraySet
+
+General Concurrent Collection description
+https://www.codejava.net/java-core/collections/understanding-collections-and-thread-safety-in-java
+
+Diff between Vector and SynchronizedList
+https://stackoverflow.com/questions/14932034/in-java-vector-and-collections-synchronizedlist-are-all-synchronized-whats-th
+
+https://www.youtube.com/watch?v=N0mMm5PF5Ow
+
+Synchronous Queue
+https://www.youtube.com/watch?v=QCMt324j64U
+
+Blocking Queue in Java
+https://www.youtube.com/watch?v=AVh_udI27K0
+https://www.geeksforgeeks.org/blockingqueue-interface-in-java/
+http://tutorials.jenkov.com/java-concurrency/blocking-queues.html#:~:text=A%20blocking%20queue%20is%20a,an%20item%20into%20the%20queue.
+
+Mutex
+https://www.baeldung.com/java-mutex
+https://mkyong.com/java/java-thread-mutex-and-semaphore-example/
+
+
+semaphore
+http://tutorials.jenkov.com/java-concurrency/semaphores.html#bounded
+https://www.youtube.com/watch?v=shH38znT_sQ&list=PLhfHPmPYPPRk6yMrcbfafFGSbE2EPK_A6&index=16
+
+LinkedBlockingQueue VS ArrayBlockingQueue
+https://stackoverflow.com/questions/18375334/what-is-the-difference-between-arrayblockingqueue-and-linkedblockingqueue/18375593#:~:text=LinkedBlockingQueue%20has%20a%20putLock%20and,conditions%20(%20takeLock%20%2C%20putLock).

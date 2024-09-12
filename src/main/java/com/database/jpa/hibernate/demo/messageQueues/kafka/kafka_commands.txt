@@ -1,0 +1,18 @@
+ZooKeeper start
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+Kafka Server start
+bin/kafka-server-start.sh config/server.properties
+
+Create topic
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Kafka_Example
+
+Consumer
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Kafka_Example --from-beginning
+
+Producer
+bin/kafka-console-producer.sh --bootstrap-server --broker-list localhost:9092 --topic Kafka_Example
+
+
+https://www.youtube.com/watch?v=NjHYWEV_E_o
+https://www.youtube.com/watch?v=IncG0_XSSBg

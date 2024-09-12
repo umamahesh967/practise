@@ -1,0 +1,16 @@
+
+What is polymorphism in programming?
+Polymorphism is the capability of a method to do different things based on the object that
+ it is acting upon. In other words, polymorphism allows you define one interface and
+ have multiple implementations.
+
+1. Method Overloading in Java – This is an example of compile time (or static polymorphism)
+2. Method Overriding in Java – This is an example of runtime time (or dynamic polymorphism)
+
+*******Below link Covers all topics of OOPS******
+https://www.geeksforgeeks.org/object-oriented-programming-oops-concept-in-java/
+
+https://www.geeksforgeeks.org/association-composition-aggregation-java/
+
+https://beginnersbook.com/2013/05/java-inheritance-types/
+

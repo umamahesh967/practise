@@ -1,0 +1,8 @@
+We can do read operations from database without having nothing do with transactional.
+But we can't perform write operations without transactional in this case we will get (javax.persistence.TransactionRequiredException).
+
+
+Propagation Article
+https://dzone.com/articles/spring-transaction-propagation
+
+https://www.baeldung.com/spring-transactional-propagation-isolation

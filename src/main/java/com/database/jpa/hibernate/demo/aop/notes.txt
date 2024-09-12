@@ -1,0 +1,42 @@
+Spring-AOP is one of the implementations of the Aspectj.
+Spring-AOP is not as powerful as AspectJ.
+We can use Spring-AOP to intercept any calls to beans. Any beans which are managed by Spring Framework we can intercept the method calls and do something around that.
+
+However Aspectj is much more powerful than that, we can even intercept value changes on the field.
+
+AOP is the best approach for implementing cross-cutting concerns.
+
+
+Very good for understanding the difference between Pointcut, Advice and JointPoint.
+https://stackoverflow.com/questions/15447397/spring-aop-whats-the-difference-between-joinpoint-and-pointcut
+
+Joinpoint - Potential places to apply/run the advice code.
+Pointcut - actual chosen joinpoints for executing the advice.
+
+
+What is the difference between concern and cross-cutting concern in Spring AOP?
+Concern is behaviour which we want to have in a module of an application. Concern may be defined
+as a functionality we want to implement to solve a specific business problem.
+E.g. in any eCommerce application different concerns (or modules) may be inventory management,
+    shipping management, user management etc.
+
+Cross-cutting concern is a concern which is applicable throughout the application
+(or more than one module). e.g. logging , security and data transfer are the concerns which are
+needed in almost every module of an application, hence they are termed as cross-cutting concerns.
+
+
+What is Joint point and Point cut?
+Join point is a point of execution of the program, such as the execution of a method or
+the handling of an exception. In Spring AOP, a join point always represents a method execution.
+For example, all the methods defined inside your EmployeeManager interface can be considered
+joint points if you apply any cross-cutting concern of them.
+
+Pointcut is a predicate or expression that matches join points. Advice is associated with a
+pointcut expression and runs at any join point matched by the pointcut
+(for example, expression “execution(* EmployeeManager.getEmployeeById(..))” to match
+getEmployeeById() the method in EmployeeManager interface). The concept of join points as
+matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut
+expression language by default.
+
+https://howtodoinjava.com/interview-questions/top-spring-aop-interview-questions-with-answers/
+

@@ -1,0 +1,159 @@
+ACID Properties:
+
+https://www.educative.io/edpresso/what-are-acid-properties-in-a-database?affiliate_id=5082902844932096&utm_source=google&utm_medium=cpc&utm_campaign=platform2&utm_content=ad-1-dynamic&gclid=EAIaIQobChMIt7aKoZ296wIViuJ3Ch0n7wS2EAAYASAAEgIuh_D_BwE
+
+https://www.geeksforgeeks.org/acid-properties-in-dbms/
+
+Atomic :- Everything in a transaction succeeds or the entire transaction is rolled back.
+                                (or)
+          Atomic is the basic thing that any transaction management want to achieve.
+          Either the transaction should be completely successful(Commit) or all of the changes
+          that done in transaction should be reverted(rolled back).
+
+          If there are 10 steps in transaction either all of them should be
+           successful or none of them should be successful.
+
+
+Consistent :- Data is in a consistent state when a transaction starts and when it ends.
+              For example, in an application that transfers funds from one account to another,
+              the consistency property ensures that the total value of funds in both the
+              accounts is the same at the start and end of each transaction.
+
+              Ensuring system is in consistent state irrespective of success or failure of a transaction.
+
+              (or)
+              The data will only be committed if it passes all the rules in place in the database (ie: data types, triggers, constraints, etc).
+
+              or
+              Now, when discussing the C in ACID we typically consider examples of inconsistency where the data violates the consistency rules.
+              For an example, consider the following case. Assume we have a record in en EMPLOYEE table that has a field WORKS-FOR-DEPT
+              that normally contains the name of a department and refers as such to a record in DEPARTMENT with that name is primary key.
+              If there is no corresponding record in the DEPARTMENT table then we can derive a contradiction,
+              namely that there is a department with that name (since in EMPLOYEE it is referred to) and at the same time that there
+              is not (since it does not appear in the DEPARTMENT table).
+
+
+Isolated: Transactions cannot interfere with each other.
+                                 (or)
+
+
+Durable: Completed transactions persist, even when servers restart/Fails etc.
+                                 (or)
+         End result of the transaction should be persisted even when system/server fails.
+
+
+
+
+
+https://www.udemy.com/course/hibernate-jpa-tutorial-for-beginners-in-100-steps/learn/lecture/7907614#overview
+
+Dirty Reads: Transaction "A" writes a record. Meanwhile, Transaction "B" reads that same record
+             before Transaction A commits. Later, Transaction A decides to rollback and now we have
+             changes in Transaction B that are inconsistent. This is a dirty read. Transaction B was
+             running in READ_UNCOMMITTED isolation level so it was able to read Transaction A changes
+             before a commit occurred.
+
+             (or)
+
+             In simple terms,  Dirty read happens when Transaction 'B' reads a value which was modified by transaction 'A'
+             even before transaction 'A' is commited.
+
+Non-Repeatable Reads: Transaction "A" reads some record. Then Transaction "B" writes that same record
+                      and commits. Later Transaction A reads that same record again and may get different values
+                      because Transaction B made changes to that record and committed. This is a non-repeatable
+                      read.
+
+                      (or)
+
+                      Whenever I am reading the same record twice during the transaction, I get different values because
+                      some other transaction has updated that value/record.
+
+                      (or)
+
+                      Non-repeatable read is when a transaction tries to retrieve the same data twice and it gets two different
+                      values during the same transaction
+
+
+
+Phantom Reads: Transaction "A" reads a range of records. Meanwhile, Transaction "B" inserts a new record in
+               the same range that Transaction A initially fetched and commits. Later Transaction A reads the
+               same range again and it will also get the record that Transaction B just inserted. This is a
+               phantom read: a transaction fetched a range of records multiple times from the database and
+               obtained different result sets (containing phantom records).
+
+               (or)
+
+               Transaction 'A' executes a query and gets a set of results/records. After that transaction 'B' inserts/deletes
+               a new record and commits. Transaction 'A' again executes the same query and gets different kind of
+               results/records (This will contain/not contain the new record inserted/deleted by the Transaction 'B'). This is called phantom reads.
+
+               (or)
+
+               Phantom read is when I get a different number of rows as a result of a query at two different points in the
+               same transaction
+
+
+
+
+Isolation Levels and what are the problems they solve.
+
+Table
+
+Isolation Level            Dirty Read           Non Repeatable Read           Phantom Read
+
+Read Uncommited            Possible             Possible                       Possible
+
+Read Commited              Solved               Possible                       Possible
+
+Repeatable Read            Solved               Solved                         Possible
+
+Serializable               Solved               Solved                         Solved
+
+
+Read Uncommited :- So in Read Uncommitted there is no restrictions. So you would allow any transaction
+                   to read any data whether it's uncommitted or committed. In this all three problems
+                   are possible.
+
+
+Read Commited :-   Any data that has changed during a transaction, we will hold a lock on it. We will not
+                   allow other transaction to read that data unless the 1st transaction commits.
+                   Once 1st transaction commits. We will release the lock and other transaction can read the data.
+                   There will not be any dirty reads but other two (Non repeatable, phantom) are still possible.
+                   In this isolation level, it holds write locks (acquired on selected data) until the end of the transaction,
+                   but not hold read lock.
+
+Repeatable Read :- It will lock both modified values and read values in the transaction. Locked data will
+                   not be available for other transactions. Once 1st transaction is completed then data is available
+                   for other transactions. In this case there will not be any Dirty and Non Repeatable reads but still
+                   Phantom reads are still possible.
+                   Read and write locks (acquired on selected data) until the end of the transaction.
+                   However, range-locks are not managed.
+
+Serializable :- It will requires read and write locks (acquired on selected data) to be released at the end of the transaction.
+                Also range-locks is also acquired .
+
+                For example;
+
+                1st transaction 1st step:- select * from person where age between 20 and 45;
+                (here lock will created and will not allow any insert/delete which match above constraint)
+
+                2nd transaction 1st step: Insert into person values("Ravi", 25);
+                above insert will not work because lock was created will not allow any thing to happen between age 20 and 45.
+
+                (but again if we insert record with age 15)?. Not sure whether it will work or not? - Mostly it works.
+
+
+                1st transaction 2d step: select * from person where age between 20 and 45
+                If we execute again we get same results because lock didn't allow any other transaction to insert/delete any
+                record/row from table.
+
+
+
+https://www.geeksforgeeks.org/transaction-isolation-levels-dbms/
+https://en.wikipedia.org/wiki/Isolation_%28database_systems%29
+
+
+Transactional of Spring and JPA :-
+
+JPA Transactional: Supports transactional support for talking to single database.
+Spring Transactional: Supports transactional support for talking to multiple database.

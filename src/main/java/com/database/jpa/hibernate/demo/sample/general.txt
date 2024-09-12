@@ -1,0 +1,146 @@
+Onsite:
+System design: Design a scalable system to create a feature where a user looking at a property on booking.com can
+    see how many other users are also looking at the same property.
+
+
+For system design (Hit Counter)
+
+@Use cases:
+user can view a property
+user can see the active number of other users who are seeing the same property
+
+@non functional requirements
+
+system needs to be scalabe -> what happens when millions of people are looking at property simaltanuously -> ask interviewer traffic details
+as a user i don't care if a system shows accurate values until it is near to accurate value -> consistency can take a hit
+Latency should be minimal while informing the users in the change in count
+
+
+Interface:
+
+A simple Visitors micro-service which has a control plane where all the apis are exposed. (/property/ POST: {userId: }
+As we don't have any kind of schema for storage, we just store key-value data -> :count
+We also maintain a fleet of servers. We hash the property id and create a connection between the user client and our server.
+This connection will be used for Server side events (not going for websockets as there is traffic only from server to client)
+All the connections for a property reside in the same server -> fanning out updates is easy from the visitor service.
+consistent hashing
+visitor service and connection servers can be decoupled via kafka style queues
+Storage:
+
+K,V Store like Redis with some ttl (mostly we would like to persist data)
+For scaling:
+
+None of the components is a bottleneck and can be scaled independently.
+We can observe shifting overhead in case of adding a new server for consistent hashing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Fraud Detection Service
+
+I would propose the following solution for the system design:
+
+Questions I would ask (including expected answers!):
+Q:How frequently is the list in Fred updated?
+A: As soon as a fraud detection system detects a card is fraud, it updates in Fred. We do not have more data.
+
+Q:What kind of API does Fred have? Does it always give a huge list?
+A:Yes, Fred is an external system and it only returns a list. We cannot make changes to that system. CC fraud can be real-time. Ideally, there are ML models to detect fraud. Fred is the system that is managing the list of fraud CCs.
+
+Can Fred publish a message when something is added or removed from their list?NO
+Does Fred have an API to query if a card is in the list? NO
+
+Q: How critical is consistency? i.e. if a new card has been added to Fred’s list, is it required that we are not allowed to use that card immediately, or is some time-gap allowed?
+A: Ideally, it is ok to have a gap. Let’s say max 1 day.
+
+Q: What about a scenario that a booking was made using a card that was not fraudulent. But the card was later identified as a fraud. What do we do with open bookings on that card?
+A: We have to identify those bookings and flag them.
+
+scale questions:
+How big is the list of CC? 1 million
+How many bookings per day? 1 million
+How does Fred let us know the CC information? Ideally, CC numbers would not be passed around.. They could be hashed / encrypted?
+
+Scenario 1: Case where the booking was made on a valid card, but the card was later identified as a fraud.
+
+A small note on credit-cards. Usually, we do not pass credit-card numbers around. We usually store tokens, and the actual credit-card information is stored in a separate ultra-secure storage.
+
+Solution: we have a log of bookings being made, with booking_id, date, token. We could have a map-reduce job, which consumes the logs, and produces a map where the key is the token, and the value is a sorted list of booking/date combinations (sorted on date). This job runs daily, and keeps updating a key-value database, where key is the cc token, and the value is a list of txns made by that CC.
+
+We also keep a cache to maintain the list of fraud cards. Key is CC token, and value is date added. The writes are once a day. We do not expect this to scale. we can use a cache, because this is derived data, and the true source is Fred. assume 1 million keys, and 100 bytes for each entry, gives us 100mb of storage for the cache.
+
+Then we run another daily job where we get the list of fraud cards, and first check in the cache if the card already exists. For every new card,
+we make an entry in the cache.
+We check in our persistent datastore for the existence of this card. We can mark all bookings for a given card as invalid.
+
+Further, to maintain the size of our persistent datastore, any booking older than the current date can be removed.
+
+What about the cards that are not fraud anymore? How wil they be removed from our cache? This can be done using our solution. We can have a date-updated. If a card is not present in Fred’s list on a particular day, it’s date-udpated will become old. it can be removed from the cache.. i.e. it can be evicted.
+
+Scenario 2 -
+We have the cache of the fraud cards, that is refreshed daily. For every booking, we can easily check against the cache if the card exists (and if it’s actually updated recently). If it is found, we reject the transaction instantaneously.
+
+The solution does not make a distinction between the 2 modes of payment, because I did not see a reason. (Could be a trick requirement?) We are being given the CC details during the confirmation of the booking. In terms of identifying fraud, it does not matter if the payment is being taken at that point by booking.com, or charged by the merchant later. We can always charge the card instantly, and later reject the booking and make a refund to that card in case it is fraud. The design stays the same in my opinion. Opinions are welcome!
+
+
+
+Three Services:
+
+UpdateCardListingService -> Adds new cards to Redis every N seconds
+FradulentCCardCheckingService -> To check if card present in Redis
+CheckBookedTransactionsForFradulentCCards -> Check already booked transactions with new credit cards that are added.
+Flow for Service:
+2.
+User is booking an Hotel -> Enters a credit card -> Request is consumed by FraudulentCardCheckingService (Which checks if user entered credit card present) -> Returns True/False based on Card found at Redis
+3.
+Earlier transactions which are already booked, we can run a batch job once a day (Can be performed more frequently), to check the status of the card at Redis. If found, flag that transaction.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hi, Can someone please help me in system design question.
+According to my understanding:
+
+There are two type of transactions (immediate - payment charged by booking and later - payment charged by hotel on check in).
+For immediate type, we can directly call the "FRED" in a request response structure. Which can be further scaled by introducing the push-pull or event loop based method to prevent the third party from being the bottleneck.
+I am confused regarding the later payment method.
+For example, a hotel is booked for 30 days later using the "later" payment method.
+Now there are two ways to check the credit card for fraud :
+Check for the card on some interval (lets say, every day) up until the day of booking.
+Check for the card just on the day of the check-in.
+Now, with the above methods, I can see of a problem.
+Checking every day will be increasing load on third-party as we are speaking of 1M bookings here and relaying on third party service will be a bottleneck which cannot be
+scaled enough.
+Checking just before the check-in will cause bad experience for the genuine user who gave the wrong card. He/She'll be notified on that day itself that he/she needs to
+update their card details (Bad user experience).
+
+
+
+
+
+
+
+
+
+
+

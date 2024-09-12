@@ -1,0 +1,93 @@
+
+DFS In Directed Graph
+Time Complexity:- (O(N) + Summation of Degree of Vertices/Node) =  O(N)+O(E)
+Space Complexity:-O(N)
+
+DFS In UnDirected Graph
+Time Complexity:- (O(N) + Summation of Degree of Vertices/Node) =  O(N)+O(2*E)
+Space Complexity:-O(N)
+
+look below video
+https://www.youtube.com/watch?v=Qzf1a--rhp8&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=6
+
+
+ShortestPath in Directed Graph
+Find Find Toposort, after that for each node in Topo sort go through the edges connected to that node and compute min distance.
+=> look into ShortestPathFromSourceInDirectedAcyclicGraph.class
+
+
+
+
+Shortest Path in UndirectedGraph
+
+if weight of each edge is same, then we can travel from source and use queue to solve problem
+No need of priority queue because since weights are same first node which comes into queue will have less weight compared to nodes after that.
+
+
+
+Dijkstra Algorithms Time Complexity (Single source shortest algorithm)
+Elog(V)
+=>  Will not work for negative weight edge
+Use of PriorityQueue or Queue is is Dijkstra Algorithms
+
+
+Bellman Form Algorithm(We should use Bellman ford in problems only when we have negative edges or to detect negative edge cycle)
+We can use this algorithm even if we have negative edges,
+we use 0 to V-1
+What does Bellman-Ford do with negative cycles?
+A negative weight cycle is a cycle with weights that sum to a negative number.
+The Bellman-Ford algorithm propagates correct distance estimates to all nodes in a graph in V-1 steps, unless there is a negative weight cycle.
+If there is a negative weight cycle, you can go on relaxing its nodes indefinitely.
+https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+
+
+
+Both Dijkstra Algorithms and Bellman Form Algorithm works only when we have compute shortest distance from single source.
+
+
+Floyd Warshal Algorithm => To find shortest distance from every source/node to all other nodes
+
+Floyd Warshall algorithm is used to find the shortest path between all vertices in the weighted graph.
+This algorithm works with both directed and undirected graphs but it does not work along with the graph with negative weight cycles.
+Helps in detecting whether or not there are negative-weight cycles in a graph.
+https://www.geeksforgeeks.org/bellman-ford-vs-floyd-warshalls-algorithm-a-comparative-analysis/
+
+
+By using both bellman ford and floyd warshall algorithm we can detect whether or not there are negative-weight cycles in a graph.
+
+
+Prims Algorithm
+Minimum Spanning Tree - Minimum graph with V vertices and v-1 edges with minimum weight forms minimum spanning tree.
+https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/
+https://www.youtube.com/watch?v=mJcZjjKzeqk&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=45
+Time Complexity: O(E*log(E)) where E is the number of edges
+2 ways
+1 => mst will mst[] and dist[], we will always find node is false in mst[] and have min in dist[]
+Time Complexity: O(V2), If the input graph is represented using an adjacency list, then the time complexity of Prim’s algorithm can be reduced to O(E * logV)
+
+2 => Use priority queue to find min node
+Time Complexity: O(E*log(E)) where E is the number of edges
+
+
+
+
+Disjoint Set (Union by Rank | Union by Size | Path Compression)
+
+We can determine if two nodes belong to same component or not.
+Time Complexity in Union by Rank | Union by Size :- is O(4 * Alpha)
+
+
+
+
+Kruskal's Algorithm
+helps us to find minimum spanning tree
+we solve using disjoint sets,
+first we sort the edges and pick one by one, if they don't belong to same component.
+
+
+
+
+
+
+
+

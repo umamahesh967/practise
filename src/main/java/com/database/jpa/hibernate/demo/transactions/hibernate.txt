@@ -1,0 +1,27 @@
+Learn what is SessionFactory, Session object
+
+https://www.tutorialspoint.com/hibernate/hibernate_architecture.htm
+https://docs.jboss.org/hibernate/orm/3.5/javadocs/org/hibernate/SessionFactory.html
+
+Hibernate Session States
+https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate
+https://www.youtube.com/watch?v=gi7LCJVecm8&feature=youtu.be
+https://www.youtube.com/watch?v=ZLeTFBvegfY
+
+
+
+EntityManager
+https://www.ibm.com/support/knowledgecenter/SSHR6W/com.ibm.websphere.wdt.doc/topics/c_entity_manager.html
+
+https://stackoverflow.com/questions/42074270/should-there-be-an-entitymanager-per-thread-in-spring-hibernate/42074452#42074452
+
+Autowired vs PersistenceContext
+https://stackoverflow.com/questions/31335211/autowired-vs-persistencecontext-for-entitymanager-bean#:~:text=You%20shouldn't%20use%20%40Autowired,the%20application%20creates%20a%20thread.
+
+https://www.baeldung.com/jpa-hibernate-persistence-context
+
+N+1 Query problem
+https://vladmihalcea.com/n-plus-1-query-problem/
+
+
+

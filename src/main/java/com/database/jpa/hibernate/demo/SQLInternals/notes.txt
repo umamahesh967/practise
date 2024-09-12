@@ -1,0 +1,33 @@
+
+https://mariadb.com/kb/en/information-schema-processlist-table/
+
+SELECT * FROM information_schema.processlist WHERE command != 'Sleep' and time>1  order by time;
+
+SHOW PROCESSLIST;
+
+SHOW FULL PROCESSLIST;
+
+SELECT * FROM information_schema.processlist where command!='Sleep';
+
+https://support.qualityunit.com/245419-Show-processlist-without-sleep-command
+
+SHOW VARIABLES;
+
+select * from `DATABASECHANGELOG`;
+
+show databases;
+
+SHOW FULL TABLES;
+
+//shows the number of active threads.
+show status where variable_name = 'threads_connected';
+
+//Shows all privileges of a database
+SHOW PRIVILEGES;
+
+//show privileges of the login user
+SHOW GRANTS;
+
+SHOW CREATE USER ;
+
+

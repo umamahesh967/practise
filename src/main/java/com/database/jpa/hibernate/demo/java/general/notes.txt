@@ -1,0 +1,3 @@
+
+What is the use of ENUM
+https://stackoverflow.com/questions/4709175/what-are-enums-and-why-are-they-useful

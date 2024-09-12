@@ -1,0 +1,14 @@
+2023-09-12 00:26:29.562  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=51m44s874ms).
+2023-09-12 00:32:02.528  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m32s965ms).
+2023-09-12 01:50:05.020  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h18m2s493ms).
+2023-09-12 03:10:20.982  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h20m15s962ms).
+2023-09-12 04:41:40.870  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h31m19s888ms).
+2023-09-12 06:05:37.385  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h23m56s515ms).
+2023-09-12 07:45:44.300  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h40m6s915ms).
+2023-09-12 08:45:54.936  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h10s636ms).
+2023-09-12 09:17:20.970  WARN [,,] 26588 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Retrograde clock change detected (housekeeper delta=25s722ms), soft-evicting connections from pool.
+2023-09-12 10:43:14.507  INFO [,,] 26588 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-12 10:43:14.624 TRACE [,,] 26588 --- [SpringApplicationShutdownHook] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryClosed from [org.hibernate.internal.SessionFactoryImpl@2a2798a2] for TypeConfiguration
+2023-09-12 10:43:14.676 DEBUG [,,] 26588 --- [SpringApplicationShutdownHook] o.h.type.spi.TypeConfiguration$Scope     : Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@4b4e789e] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@2a2798a2]
+2023-09-12 10:43:14.790  INFO [,,] 26588 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-12 10:43:14.954  INFO [,,] 26588 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
